@@ -1,2 +1,2 @@
 # nexpose-beyond-sla
-Nexpose SQL Export for tracking vulnerabilities beyond SLA.  A more detailed description of query to follow.
+A random collection of Nexpose SQL Export queries I've built for reporting vulnerability metrics.
