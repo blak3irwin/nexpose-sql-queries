@@ -1,8 +1,7 @@
 WITH
 vuln_urls AS (
-      SELECT vulnerability_id, array_to_string(array_agg(reference), ' , ') AS urls
+      SELECT vulnerability_id, array_to_string(array_agg(reference), ' , ') AS references
       FROM dim_vulnerability_reference 
-      WHERE source = 'URL'
       GROUP BY vulnerability_id
 )
 
@@ -16,7 +15,7 @@ WHEN (dv.riskscore >= 200 AND dv.riskscore <= 399) then 'Low'
 WHEN (dv.riskscore <= 199) then 'Very Low'
 END AS vuln_severity,
 proofastext(dv.description) as vuln_description, 
-proofastext(favi.proof) as vuln_proof, vu.urls, favi.port as "port (-1 = n/a)", dv.date_added as vuln_date_into_nexpose, 
+proofastext(favi.proof) as vuln_proof, vu.references, favi.port as "port# (-1 = n/a)", dv.date_added as vuln_date_into_nexpose, 
 to_char(favi.date, 'YYYY-mm-dd') as asset_last_scan
 
 FROM fact_asset_vulnerability_instance favi
